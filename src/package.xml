@@ -5,7 +5,7 @@
             <widgetFile path="SlickCarousel.xml"/>
         </widgetFiles>
         <files>
-            <file path="com/mendix/widget/custom/slickcarousel"/>
+            <file path="conventsystems/slickcarousel"/>
         </files>
     </clientModule>
 </package>

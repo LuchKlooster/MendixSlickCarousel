@@ -140,10 +140,10 @@ export function SlickCarouselComponent(props: SlickCarouselContainerProps): Reac
     // regardless of whether the CSS :has() rule matches in the current Mendix layout context.
     const computedStyle: CSSProperties | undefined = vertical
         ? ({
-              ...style,
-              overflow: "hidden",
-              ...(ratioHeight != null ? { "--slick-vertical-height": `${Math.round(ratioHeight)}px` } : {})
-          } as CSSProperties)
+            ...style,
+            overflow: "hidden",
+            ...(ratioHeight != null ? { "--slick-vertical-height": `${Math.round(ratioHeight)}px` } : {})
+            } as CSSProperties)
         : style;
 
     const arrowStyleClass = arrowStyle !== "default" ? ` slick-carousel-arrows--${arrowStyle}` : "";
@@ -259,11 +259,11 @@ export function SlickCarouselComponent(props: SlickCarouselContainerProps): Reac
                     const handleClick = isClickable ? () => clickAction!.execute() : undefined;
                     const handleKeyDown = isClickable
                         ? (e: KeyboardEvent<HTMLDivElement>) => {
-                              if (e.key === "Enter" || e.key === " ") {
-                                  e.preventDefault();
-                                  clickAction!.execute();
-                              }
-                          }
+                            if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                clickAction!.execute();
+                            }
+                        }
                         : undefined;
 
                     return (

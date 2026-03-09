@@ -5,7 +5,7 @@
     "description": "A carousel widget powered by Slick for Mendix",
     "copyright": "© 2024. All rights reserved.",
     "license": "Apache-2.0",
-    "packagePath": "com.mendix.widget.custom",
+    "packagePath": "conventsystems",
     "repository": {
         "type": "git",
         "url": ""
@@ -18,7 +18,7 @@
         "start": "pluggable-widgets-tools start:web"
     },
     "config": {
-        "packagePath": "com.mendix.widget.custom"
+        "packagePath": "conventsystems"
     },
     "dependencies": {
         "react-slick": "^0.30.0",
