@@ -1,0 +1,373 @@
+/* SlickCarousel Widget Styles */
+
+.slick-carousel-widget {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Slide */
+.slick-carousel-slide {
+    outline: none;
+    box-sizing: border-box;
+}
+
+.slick-carousel-slide--clickable {
+    cursor: pointer;
+}
+
+.slick-carousel-slide--clickable:focus-visible {
+    outline: 2px solid #0078d4;
+    outline-offset: 2px;
+}
+
+/* Default image layout */
+.slick-carousel-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Loading state */
+.slick-carousel-loading {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slick-carousel-loader {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #264ae5;
+    border-radius: 50%;
+    animation: slick-carousel-spin 0.8s linear infinite;
+}
+
+@keyframes slick-carousel-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Empty state */
+.slick-carousel-empty {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+}
+
+.slick-carousel-empty-message {
+    color: #888;
+    font-size: 14px;
+}
+
+/* Slide caption */
+.slick-carousel-caption {
+    text-align: center;
+    padding: 8px 16px 4px;
+    font-size: 14px;
+    color: #444;
+}
+
+/* Reserve space for dots at the bottom */
+.slick-carousel-widget .slick-slider {
+    padding-bottom: 40px;
+}
+
+/* Vertical mode
+ *
+ * Override height:
+ *   --slick-vertical-height: 600px;
+ *
+ * The outer widget gets padding-top/bottom to create space for the arrows
+ * (which are pulled out of the slider with negative positioning).
+ * This avoids any clipping of slide content.
+ */
+.slick-carousel-widget:has(.slick-vertical) {
+    padding-top: 48px;
+    padding-bottom: 48px;
+    /* Explicit total height = slider height + arrow padding on both sides.
+     * This ensures Accordion/parent JS measures the correct height even before
+     * react-slick initializes and constrains the inner track. */
+    height: calc(var(--slick-vertical-height, 400px) + 96px);
+    overflow: hidden;
+}
+
+.slick-carousel-widget .slick-slider.slick-vertical {
+    height: var(--slick-vertical-height, 400px);
+    padding-bottom: 0;
+}
+
+.slick-carousel-widget .slick-slider.slick-vertical .slick-list {
+    height: 100% !important;
+    overflow: clip;
+}
+
+/* Force each slide to match the list height so track translations stay correct. */
+.slick-carousel-widget .slick-slider.slick-vertical .slick-slide {
+    height: var(--slick-vertical-height, 400px) !important;
+    border: none;
+    overflow: hidden;
+}
+
+.slick-carousel-widget .slick-slider.slick-vertical .slick-slide > div {
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Flex-column layout so the caption is always anchored at the bottom.
+ * The content child (anything that isn't the caption) gets flex:1 + min-height:0
+ * so it fills exactly the remaining space and cannot push the caption out,
+ * even when the content widget has an intrinsic minimum height. */
+.slick-carousel-widget .slick-slider.slick-vertical .slick-slide > div > .slick-carousel-slide {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.slick-carousel-widget .slick-slider.slick-vertical .slick-slide > div > .slick-carousel-slide > :not(.slick-carousel-caption) {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Never let the caption shrink below its natural height, so offsetHeight measurement
+ * in JS always returns the true text height regardless of container state. */
+.slick-carousel-widget .slick-slider.slick-vertical .slick-carousel-caption {
+    flex-shrink: 0;
+}
+
+/* Vertical arrows: centered horizontally, pulled into the padding areas */
+.slick-carousel-widget .slick-slider.slick-vertical .slick-prev,
+.slick-carousel-widget .slick-slider.slick-vertical .slick-next {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.slick-carousel-widget .slick-slider.slick-vertical .slick-prev {
+    top: -48px;
+}
+
+.slick-carousel-widget .slick-slider.slick-vertical .slick-next {
+    top: auto;
+    bottom: -48px;
+    right: auto;
+}
+
+/* Vertical dots: move to left side */
+.slick-carousel-widget .slick-slider.slick-vertical .slick-dots {
+    bottom: auto;
+    top: 50%;
+    left: 5px;
+    right: auto;
+    width: auto;
+    transform: translateY(-50%);
+}
+
+.slick-carousel-widget .slick-slider.slick-vertical .slick-dots li {
+    display: block;
+    margin: 4px 0;
+}
+
+/* Arrow button overrides
+ *
+ * Override per widget instance using inline style on the widget:
+ *   --slick-arrow-bg: #0078d4;
+ *   --slick-arrow-bg-hover: #005fa3;
+ *   --slick-arrow-color: white;
+ *   --slick-arrow-size: 24px;
+ *
+ * Or globally in your app theme:
+ *   .slick-carousel-widget { --slick-arrow-bg: #0078d4; }
+ */
+.slick-carousel-widget .slick-prev,
+.slick-carousel-widget .slick-next {
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    background: var(--slick-arrow-bg, rgba(0, 0, 0, 0.4));
+    border-radius: 50%;
+}
+
+.slick-carousel-widget .slick-prev:hover,
+.slick-carousel-widget .slick-next:hover {
+    background: var(--slick-arrow-bg-hover, rgba(0, 0, 0, 0.7));
+}
+
+/* When infinite loop is off, react-slick adds .slick-disabled to the arrow
+ * that has no more slides in that direction. */
+.slick-carousel-widget .slick-prev.slick-disabled,
+.slick-carousel-widget .slick-next.slick-disabled {
+    background: var(--slick-arrow-bg-disabled, rgba(0, 0, 0, 0.15));
+    cursor: default;
+    pointer-events: none;
+}
+
+.slick-carousel-widget .slick-prev.slick-disabled::before,
+.slick-carousel-widget .slick-next.slick-disabled::before {
+    color: var(--slick-arrow-color-disabled, rgba(255, 255, 255, 0.4));
+    opacity: 1;
+}
+
+.slick-carousel-widget .slick-prev {
+    left: 10px;
+}
+
+.slick-carousel-widget .slick-next {
+    right: 10px;
+}
+
+.slick-carousel-widget .slick-prev::before,
+.slick-carousel-widget .slick-next::before {
+    font-size: var(--slick-arrow-size, 24px);
+    color: var(--slick-arrow-color, white);
+    opacity: 1;
+}
+
+/* ── Arrow style presets ─────────────────────────────────────────────────────
+ *
+ * Applied via .slick-carousel-arrows--{style} on the widget root.
+ * Each preset overrides only what differs from the default circular dark button.
+ * Users can still fine-tune colours via the CSS variables.
+ */
+
+/* chevron — no background button, thin open chevron built from CSS borders */
+.slick-carousel-arrows--chevron .slick-prev,
+.slick-carousel-arrows--chevron .slick-next {
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.slick-carousel-arrows--chevron .slick-prev:hover,
+.slick-carousel-arrows--chevron .slick-next:hover {
+    background: transparent;
+}
+
+.slick-carousel-arrows--chevron .slick-prev::before,
+.slick-carousel-arrows--chevron .slick-next::before {
+    content: "";
+    display: inline-block;
+    width: calc(var(--slick-arrow-size, 24px) * 0.45);
+    height: calc(var(--slick-arrow-size, 24px) * 0.45);
+    border-right: 2px solid var(--slick-arrow-color, white);
+    border-top: 2px solid var(--slick-arrow-color, white);
+    font-size: 0;
+    vertical-align: middle;
+}
+
+.slick-carousel-arrows--chevron .slick-prev::before {
+    transform: rotate(-135deg) translate(-2px, 2px);
+}
+
+.slick-carousel-arrows--chevron .slick-next::before {
+    transform: rotate(45deg) translate(-2px, 2px);
+}
+
+/* round — circle outline; no fill by default, fills on hover */
+.slick-carousel-arrows--round .slick-prev,
+.slick-carousel-arrows--round .slick-next {
+    background: transparent;
+    border: 2px solid var(--slick-arrow-color, white);
+    border-radius: 50%;
+}
+
+.slick-carousel-arrows--round .slick-prev:hover,
+.slick-carousel-arrows--round .slick-next:hover {
+    background: var(--slick-arrow-bg-hover, rgba(0, 0, 0, 0.6));
+}
+
+/* square — rectangular with a small radius */
+.slick-carousel-arrows--square .slick-prev,
+.slick-carousel-arrows--square .slick-next {
+    border-radius: 4px;
+    width: 44px;
+    height: 44px;
+}
+
+/* minimal — no visible button shell; icon dims slightly, brightens on hover */
+.slick-carousel-arrows--minimal .slick-prev,
+.slick-carousel-arrows--minimal .slick-next {
+    background: transparent;
+    border-radius: 0;
+}
+
+.slick-carousel-arrows--minimal .slick-prev:hover,
+.slick-carousel-arrows--minimal .slick-next:hover {
+    background: transparent;
+}
+
+.slick-carousel-arrows--minimal .slick-prev::before,
+.slick-carousel-arrows--minimal .slick-next::before {
+    opacity: 0.55;
+}
+
+.slick-carousel-arrows--minimal .slick-prev:hover::before,
+.slick-carousel-arrows--minimal .slick-next:hover::before {
+    opacity: 1;
+}
+
+/* custom — reset all default button chrome; user's drop zone content defines the look */
+.slick-carousel-arrows--custom .slick-prev,
+.slick-carousel-arrows--custom .slick-next {
+    background: transparent;
+    border-radius: 0;
+    width: auto;
+    height: auto;
+}
+
+.slick-carousel-arrows--custom .slick-prev:hover,
+.slick-carousel-arrows--custom .slick-next:hover {
+    background: transparent;
+}
+
+.slick-carousel-arrows--custom .slick-prev::before,
+.slick-carousel-arrows--custom .slick-next::before {
+    display: none;
+}
+
+.slick-carousel-arrows--custom .slick-prev.slick-disabled,
+.slick-carousel-arrows--custom .slick-next.slick-disabled {
+    background: transparent;
+    opacity: var(--slick-arrow-disabled-opacity, 0.35);
+}
+
+/* Wrapper rendered by CustomArrow — fills the slick arrow slot and centres content */
+.slick-carousel-custom-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* ── End arrow style presets ─────────────────────────────────────────────── */
+
+/* Dot navigation — positioned inside the padded area
+ *
+ * Override:
+ *   --slick-dot-color: #ccc;
+ *   --slick-dot-color-active: #0078d4;
+ *   --slick-dot-size: 10px;
+ */
+.slick-carousel-widget .slick-dots {
+    bottom: 5px;
+}
+
+.slick-carousel-widget .slick-dots li button::before {
+    font-size: var(--slick-dot-size, 10px);
+    color: var(--slick-dot-color, #000);
+    opacity: 0.4;
+}
+
+.slick-carousel-widget .slick-dots li.slick-active button::before {
+    color: var(--slick-dot-color-active, var(--slick-dot-color, #000));
+    opacity: 1;
+}

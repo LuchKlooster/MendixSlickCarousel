@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget
+    id="com.mendix.widget.custom.slickcarousel.SlickCarousel"
+    pluginWidget="true"
+    needsEntityContext="false"
+    offlineCapable="true"
+    supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/">
+    <name>Slick Carousel</name>
+    <description>A responsive carousel/slider widget powered by the Slick library.</description>
+    <studioProCategory>Display</studioProCategory>
+    <studioCategory>Display</studioCategory>
+    <properties>
+        <propertyGroup caption="General">
+            <property key="carouselType" type="enumeration" defaultValue="static">
+                <caption>Type</caption>
+                <description>Static: configure a fixed list of slides. Dynamic: bind slides to a data source.</description>
+                <enumerationValues>
+                    <enumerationValue key="static">Static</enumerationValue>
+                    <enumerationValue key="dynamic">Dynamic</enumerationValue>
+                </enumerationValues>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Static Content">
+            <property key="slideList" type="object" isList="true" required="false">
+                <caption>Slide list</caption>
+                <description>Add one entry per slide.</description>
+                <properties>
+                    <propertyGroup caption="General">
+                        <property key="caption" type="textTemplate" required="false">
+                            <caption>Caption</caption>
+                            <description>Optional caption displayed below the slide content.</description>
+                        </property>
+                        <property key="content" type="widgets">
+                            <caption>Content</caption>
+                            <description>Content to display in this slide.</description>
+                        </property>
+                    </propertyGroup>
+                </properties>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Dynamic Content">
+            <property key="datasource" type="datasource" isList="true" required="false">
+                <caption>Data source</caption>
+                <description>The list of items to display as slides.</description>
+            </property>
+            <property key="contentTemplate" type="widgets" dataSource="datasource" required="false">
+                <caption>Content</caption>
+                <description>Content rendered inside each slide. Use the current item's attributes here.</description>
+            </property>
+            <property key="imageUrl" type="attribute" dataSource="datasource" required="false">
+                <caption>Image URL attribute</caption>
+                <description>String attribute containing the URL of the slide image (used when no content template is provided).</description>
+                <attributeTypes>
+                    <attributeType name="String" />
+                </attributeTypes>
+            </property>
+            <property key="imageAlt" type="attribute" dataSource="datasource" required="false">
+                <caption>Image alt text attribute</caption>
+                <description>String attribute for the image alt text.</description>
+                <attributeTypes>
+                    <attributeType name="String" />
+                </attributeTypes>
+            </property>
+            <property key="onSlideClick" type="action" dataSource="datasource" required="false">
+                <caption>On slide click</caption>
+                <description>Action triggered when a slide is clicked.</description>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Events">
+            <property key="currentSlide" type="attribute" required="false">
+                <caption>Current slide</caption>
+                <description>Integer attribute to track the current slide index.</description>
+                <attributeTypes>
+                    <attributeType name="Integer" />
+                </attributeTypes>
+            </property>
+            <property key="beforeChange" type="action" required="false">
+                <caption>Before change</caption>
+                <description>Action performed before the slide changes.</description>
+            </property>
+            <property key="afterChange" type="action" required="false">
+                <caption>After change</caption>
+                <description>Action performed after the slide changes.</description>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Carousel Behavior">
+            <property key="autoplay" type="boolean" defaultValue="false">
+                <caption>Autoplay</caption>
+                <description>Automatically advance slides.</description>
+            </property>
+            <property key="autoplaySpeed" type="integer" defaultValue="3000">
+                <caption>Autoplay speed (ms)</caption>
+                <description>Delay between slide transitions in milliseconds.</description>
+            </property>
+            <property key="speed" type="integer" defaultValue="500">
+                <caption>Animation speed (ms)</caption>
+                <description>Slide transition animation duration in milliseconds.</description>
+            </property>
+            <property key="infinite" type="boolean" defaultValue="true">
+                <caption>Infinite loop</caption>
+                <description>Loop slides infinitely.</description>
+            </property>
+            <property key="fade" type="boolean" defaultValue="false">
+                <caption>Fade transition</caption>
+                <description>Use a fade effect instead of sliding. Only works when slidesToShow is 1.</description>
+            </property>
+            <property key="vertical" type="boolean" defaultValue="false">
+                <caption>Vertical</caption>
+                <description>Slide vertically instead of horizontally.</description>
+            </property>
+            <property key="pauseOnHover" type="boolean" defaultValue="true">
+                <caption>Pause on hover</caption>
+                <description>Pause autoplay when the mouse is over the carousel.</description>
+            </property>
+            <property key="pauseOnDotsHover" type="boolean" defaultValue="false">
+                <caption>Pause on dots hover</caption>
+                <description>Pause autoplay when hovering over the dot navigation.</description>
+            </property>
+            <property key="draggable" type="boolean" defaultValue="true">
+                <caption>Draggable</caption>
+                <description>Allow dragging/swiping to navigate slides.</description>
+            </property>
+            <property key="lazyLoad" type="enumeration" defaultValue="none">
+                <caption>Lazy load</caption>
+                <description>Lazy loading strategy for slide images.</description>
+                <enumerationValues>
+                    <enumerationValue key="none">None (load all)</enumerationValue>
+                    <enumerationValue key="ondemand">On demand</enumerationValue>
+                    <enumerationValue key="progressive">Progressive</enumerationValue>
+                </enumerationValues>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Slides to Show / Scroll">
+            <property key="initialSlide" type="integer" defaultValue="0">
+                <caption>Initial slide</caption>
+                <description>Zero-based index of the slide to show on first load. Default 0 = first slide.</description>
+            </property>
+            <property key="slidesToShow" type="integer" defaultValue="1">
+                <caption>Slides to show (desktop)</caption>
+                <description>Number of slides visible at once on desktop screens (&gt;992px).</description>
+            </property>
+            <property key="slidesToShowTablet" type="integer" defaultValue="0">
+                <caption>Slides to show (tablet)</caption>
+                <description>Number of slides visible on tablet screens (≤992px). Set to 0 to use the desktop value.</description>
+            </property>
+            <property key="slidesToShowPhone" type="integer" defaultValue="0">
+                <caption>Slides to show (phone)</caption>
+                <description>Number of slides visible on phone screens (≤768px). Set to 0 to use the desktop value.</description>
+            </property>
+            <property key="slidesToScroll" type="integer" defaultValue="1">
+                <caption>Slides to scroll (desktop)</caption>
+                <description>Number of slides to advance per navigation action on desktop screens (&gt;992px).</description>
+            </property>
+            <property key="slidesToScrollTablet" type="integer" defaultValue="0">
+                <caption>Slides to scroll (tablet)</caption>
+                <description>Slides to scroll on tablet screens (≤992px). Set to 0 to use the desktop value.</description>
+            </property>
+            <property key="slidesToScrollPhone" type="integer" defaultValue="0">
+                <caption>Slides to scroll (phone)</caption>
+                <description>Slides to scroll on phone screens (≤768px). Set to 0 to use the desktop value.</description>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Navigation">
+            <property key="dots" type="boolean" defaultValue="true">
+                <caption>Show dots</caption>
+                <description>Display dot navigation indicators.</description>
+            </property>
+            <property key="arrows" type="boolean" defaultValue="false">
+                <caption>Show arrows</caption>
+                <description>Display previous/next arrow buttons.</description>
+            </property>
+            <property key="arrowStyle" type="enumeration" defaultValue="default">
+                <caption>Arrow style</caption>
+                <description>Visual style of the navigation arrows. Select "Custom" to use your own content drop zones for full creative control.</description>
+                <enumerationValues>
+                    <enumerationValue key="default">Default</enumerationValue>
+                    <enumerationValue key="chevron">Chevron</enumerationValue>
+                    <enumerationValue key="round">Round</enumerationValue>
+                    <enumerationValue key="square">Square</enumerationValue>
+                    <enumerationValue key="minimal">Minimal</enumerationValue>
+                    <enumerationValue key="custom">Custom</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="prevArrowContent" type="widgets" required="false">
+                <caption>Previous arrow content</caption>
+                <description>Custom content for the previous (left/top) arrow. Only used when Arrow style is "Custom".</description>
+            </property>
+            <property key="nextArrowContent" type="widgets" required="false">
+                <caption>Next arrow content</caption>
+                <description>Custom content for the next (right/bottom) arrow. Only used when Arrow style is "Custom".</description>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Display">
+            <property key="centerMode" type="boolean" defaultValue="false">
+                <caption>Center mode</caption>
+                <description>Show partial previous/next slides on either side of the active slide.</description>
+            </property>
+            <property key="centerPadding" type="string" defaultValue="50px">
+                <caption>Center padding</caption>
+                <description>Side padding in center mode (e.g. "50px"). Only used when Center mode is enabled.</description>
+            </property>
+            <property key="adaptiveHeight" type="boolean" defaultValue="false">
+                <caption>Adaptive height</caption>
+                <description>Adjust the carousel height to match the current slide.</description>
+            </property>
+            <property key="variableWidth" type="boolean" defaultValue="false">
+                <caption>Variable width</caption>
+                <description>Allow slides to have different widths (set width via CSS on slide elements).</description>
+            </property>
+        </propertyGroup>
+    </properties>
+</widget>

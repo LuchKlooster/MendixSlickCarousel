@@ -1,0 +1,39 @@
+{
+    "name": "slick-carousel-widget",
+    "widgetName": "SlickCarousel",
+    "version": "1.0.0",
+    "description": "A carousel widget powered by Slick for Mendix",
+    "copyright": "© 2024. All rights reserved.",
+    "license": "Apache-2.0",
+    "packagePath": "com.mendix.widget.custom",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "scripts": {
+        "build": "pluggable-widgets-tools build:web",
+        "release": "pluggable-widgets-tools release:web",
+        "lint": "pluggable-widgets-tools lint",
+        "test": "pluggable-widgets-tools test",
+        "start": "pluggable-widgets-tools start:web"
+    },
+    "config": {
+        "packagePath": "com.mendix.widget.custom"
+    },
+    "dependencies": {
+        "react-slick": "^0.30.0",
+        "slick-carousel": "^1.8.1"
+    },
+    "devDependencies": {
+        "@mendix/pluggable-widgets-tools": "11.8.0",
+        "@types/react-slick": "^0.23.10"
+    },
+    "overrides": {
+        "@types/react": "^19.0.0",
+        "@types/react-dom": "^19.0.0"
+    },
+    "peerDependencies": {
+        "react": ">=19",
+        "react-dom": ">=19"
+    }
+}
